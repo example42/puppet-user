@@ -93,31 +93,31 @@ define user::managed(
   or !empty($sshkey_content)
   or !empty($sshkeys_content) {
     file { "${real_homedir}_ssh":
-      ensure   => $dir_ensure,
-      path     => "${real_homedir}/.ssh",
-      require  => File[$real_homedir],
-      owner    => $name,
-      group    => $name,
-      mode     => $homedir_mode,
+      ensure  => $dir_ensure,
+      path    => "${real_homedir}/.ssh",
+      require => File[$real_homedir],
+      owner   => $name,
+      group   => $name,
+      mode    => $homedir_mode,
     }
   }
 
   if $sshkey_source != '' {
     file { "${real_homedir}_ssh_keys":
-      ensure   => $ensure,
-      path     => "${real_homedir}/.ssh/authorized_keys2",
-      require  => File[$real_homedir],
-      owner    => $name,
-      group    => $name,
-      mode     => '0600',
-      source   => "puppet:///modules/${sshkey_source}",
+      ensure  => $ensure,
+      path    => "${real_homedir}/.ssh/authorized_keys2",
+      require => File[$real_homedir],
+      owner   => $name,
+      group   => $name,
+      mode    => '0600',
+      source  => "puppet:///modules/${sshkey_source}",
     }
   }
 
   $sshkey_defaults = {
     ensure => present,
     user   => $name,
-    type   => 'ssh-rsa'
+    'type'   => 'ssh-rsa'
   }
 
   if !empty($sshkey_content) {
@@ -135,50 +135,50 @@ define user::managed(
 
   if $id_rsa_source != '' {
     file { "${real_homedir}_ssh_id_rsa":
-      ensure   => $ensure,
-      path     => "${real_homedir}/.ssh/id_rsa",
-      require  => File[$real_homedir],
-      owner    => $name,
-      group    => $name,
-      mode     => '0600',
-      source   => "puppet:///modules/${id_rsa_source}",
+      ensure  => $ensure,
+      path    => "${real_homedir}/.ssh/id_rsa",
+      require => File[$real_homedir],
+      owner   => $name,
+      group   => $name,
+      mode    => '0600',
+      source  => "puppet:///modules/${id_rsa_source}",
     }
   }
 
   if $id_rsa_pub_source != '' {
     file { "${real_homedir}_ssh_id_rsa_pub":
-      ensure   => $ensure,
-      path     => "${real_homedir}/.ssh/id_rsa.pub",
-      require  => File[$real_homedir],
-      owner    => $name,
-      group    => $name,
-      mode     => '0644',
-      source   => "puppet:///modules/${id_rsa_pub_source}",
+      ensure  => $ensure,
+      path    => "${real_homedir}/.ssh/id_rsa.pub",
+      require => File[$real_homedir],
+      owner   => $name,
+      group   => $name,
+      mode    => '0644',
+      source  => "puppet:///modules/${id_rsa_pub_source}",
     }
   }
 
 
   if $known_hosts_source != '' {
     file { "${real_homedir}_known_hosts":
-      ensure   => $ensure,
-      path     => "${real_homedir}/.ssh/known_hosts",
-      require  => File[$real_homedir],
-      owner    => $name,
-      group    => $name,
-      mode     => '0600',
-      source   => "puppet:///modules/${known_hosts_source}",
+      ensure  => $ensure,
+      path    => "${real_homedir}/.ssh/known_hosts",
+      require => File[$real_homedir],
+      owner   => $name,
+      group   => $name,
+      mode    => '0600',
+      source  => "puppet:///modules/${known_hosts_source}",
     }
   }
 
   if $bashprofile_source != '' {
     file { "${real_homedir}/.bash_profile":
-      ensure   => $ensure,
-      path     => "${real_homedir}/.bash_profile",
-      require  => File[$real_homedir],
-      owner    => $name,
-      group    => $name,
-      mode     => '0644',
-      source   => "puppet:///modules/${bashprofile_source}",
+      ensure  => $ensure,
+      path    => "${real_homedir}/.bash_profile",
+      require => File[$real_homedir],
+      owner   => $name,
+      group   => $name,
+      mode    => '0644',
+      source  => "puppet:///modules/${bashprofile_source}",
     }
   }
 
@@ -186,9 +186,9 @@ define user::managed(
     file{$real_homedir: }
     if $ensure == 'absent' {
       File[$real_homedir]{
-        ensure => absent,
-        purge  => true,
-        force  => true,
+        ensure  => absent,
+        purge   => true,
+        force   => true,
         recurse => true,
       }
     } else {
