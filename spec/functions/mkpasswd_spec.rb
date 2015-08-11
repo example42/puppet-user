@@ -9,6 +9,6 @@ describe 'mkpasswd' do
         it { should run.with_params('aaa', 'bbb').and_raise_error(Puppet::ParseError) }
     end
     context 'proper hash' do
-        it { should run.with_params('foobar','12345678').and_return('$1VJcF6AcE8Fc') }
+        it { should run.with_params('foobar','12345678').and_return('$1$12345678$z10EIqhVCcU9.xpb4navW0') }
     end
 end
